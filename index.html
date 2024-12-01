@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thank You, Varsha</title>
+
+  <!-- Google Fonts for Stylish Typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;500&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* Global Reset and Styling */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Poppins', sans-serif;
+      scroll-behavior: smooth;
+      overflow: hidden;
+    }
+
+    body {
+      background: linear-gradient(45deg, #FF6F61, #FF8A8A, #FF6492);
+      background-size: 300% 300%;
+      animation: gradientBG 15s ease infinite;
+      color: #fff;
+      font-size: 1.2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding: 0;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    /* Keyframe Animation for Background */
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+
+    /* Particle Effect Styling */
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Main Content Container */
+    .container {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      text-align: center;
+      animation: fadeIn 1s ease-out;
+      flex-direction: column;
+    }
+
+    /* Thank You Card */
+    .card {
+      width: 90%;
+      max-width: 650px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 30px;
+      padding: 50px;
+      box-shadow: 0 20px 80px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+      position: relative;
+      z-index: 10;
+      transition: transform 0.4s, box-shadow 0.4s, opacity 0.4s ease-in-out;
+      opacity: 0;
+      animation: slideUp 1s ease-out forwards;
+    }
+
+    .card:hover {
+      transform: translateY(0) scale(1.05);
+      box-shadow: 0 40px 120px rgba(0, 0, 0, 0.4);
+    }
+
+    h1 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 3.5rem;
+      color: #FF6F61;
+      text-shadow: 0 15px 20px rgba(0, 0, 0, 0.3);
+      margin-bottom: 20px;
+      transform: translateY(0);
+      animation: fadeInText 1.5s ease-out;
+    }
+
+    h1:hover {
+      color: #FF8A8A;
+    }
+
+    p {
+      font-size: 1.3rem;
+      line-height: 1.8;
+      color: #333;
+      margin-bottom: 20px;
+      transition: color 0.3s;
+    }
+
+    p:hover {
+      color: #FF6F61;
+    }
+
+    .signature {
+      margin-top: 30px;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: #b55d94;
+      letter-spacing: 2px;
+      transform: translateY(0);
+      animation: fadeInText 1s ease-out;
+    }
+
+    .signature:hover {
+      color: #F89D85;
+      transform: translateY(-5px);
+    }
+
+    /* Fade In Animation */
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    /* Slide-Up Animation */
+    @keyframes slideUp {
+      0% { transform: translateY(50px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+
+    /* Text Fade-in Animation */
+    @keyframes fadeInText {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1200px) {
+      h1 {
+        font-size: 3rem;
+      }
+      p {
+        font-size: 1.4rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .card {
+        width: 90%;
+        padding: 40px;
+      }
+      h1 {
+        font-size: 2.5rem;
+      }
+      p {
+        font-size: 1.2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 2rem;
+      }
+      p {
+        font-size: 1rem;
+      }
+      .card {
+        padding: 30px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Particle Effect Canvas -->
+  <canvas id="particles"></canvas>
+
+  <!-- Main Content with Card -->
+  <div class="container">
+    <div class="card">
+      <h1>Thank You, Varsha!</h1>
+      <p>Dear Varsha,</p>
+      <p>
+        Every moment spent with you feels like a beautiful dream. Your forgiveness is my greatest gift, and I am forever grateful for your love and understanding. I promise to cherish this second chance and always be there for you, no matter what.
+      </p>
+      <p class="signature">With all my heart, Parth</p>
+    </div>
+  </div>
+
+  <script>
+    // Particle Effect - Heart Shape Animation
+    const canvas = document.getElementById("particles");
+    const ctx = canvas.getContext("2d");
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const particlesArray = [];
+    const maxParticles = 300;
+
+    const heartShape = [];
+    for (let y = -20; y <= 20; y += 0.5) {
+      for (let x = -20; x <= 20; x += 0.5) {
+        const equation = Math.pow(x * 0.05, 2) + Math.pow(y * 0.05 - Math.sqrt(Math.abs(x * 0.05)), 2) - 1;
+        if (Math.abs(equation) < 0.1) {
+          heartShape.push({ x: x * 10, y: -y * 10 });
+        }
+      }
+    }
+
+    class Particle {
+      constructor() {
+        const point = heartShape[Math.floor(Math.random() * heartShape.length)];
+        this.x = canvas.width / 2 + point.x;
+        this.y = canvas.height / 2 + point.y;
+        this.size = Math.random() * 3 + 1;
+        this.color = `rgba(255, ${Math.random() * 100 + 150}, ${Math.random() * 100 + 150}, 0.8)`;
+        this.speedX = Math.random() * 2 - 1;
+        this.speedY = Math.random() * 2 - 1;
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        this.size *= 0.98;
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+      }
+    }
+
+    function initParticles() {
+      for (let i = 0; i < maxParticles; i++) {
+        particlesArray.push(new Particle());
+      }
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particlesArray.forEach((particle, index) => {
+        if (particle.size <= 0.5) particlesArray.splice(index, 1);
+        particle.update();
+        particle.draw();
+      });
+      if (particlesArray.length < maxParticles) {
+        particlesArray.push(new Particle());
+      }
+      requestAnimationFrame(animateParticles);
+    }
+
+    initParticles();
+    animateParticles();
+
+    // 3D Hover Effect on Card
+    const card = document.querySelector('.card');
+    document.addEventListener("mousemove", (event) => {
+      const mouseX = event.clientX;
+      const mouseY = event.clientY;
+
+      const centerX = window.innerWidth / 2;
+      const centerY = window.innerHeight / 2;
+      const deltaX = (mouseX - centerX) / 30;
+      const deltaY = (mouseY - centerY) / 30;
+
+      card.style.transform = `translateY(0) rotateX(${deltaY}deg) rotateY(${deltaX}deg)`;
+    });
+
+    document.addEventListener("mouseout", () => {
+      card.style.transform = "translateY(0) rotateX(0deg) rotateY(0deg)";
+    });
+
+    // Make sure the canvas is responsive with window resize
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+  </script>
+
+</body>
+</html>
